@@ -1,32 +1,25 @@
 <?php
-// 1. Variabelen vullen
+
+// Variabelen vullen
 $attractie = $_POST['attractie'];
-$capaciteit = $_POST['capaciteit'];
-$melder = $_POST['melder'];
 $type = $_POST['type'];
-$prioriteit = isset($_POST['prioriteit']) ? 1 : 0;
-$overige_info = $_POST['overige_info'];
 
-// 2. Verbinding maken (PDO)
-require_once "conn.php"; // Hier moet $pdo = new PDO(...) staan
+// 1. Verbinding
+require_once "conn.php"; // Zorg dat hier $pdo staat (PDO-object)
 
-// 3. Query voorbereiden
-$query = "INSERT INTO meldingen (attractie, capaciteit, melder, type, prioriteit, overige_info)
-          VALUES (:attractie, :capaciteit, :melder, :type, :prioriteit, :overige_info)";
+// 2. Query
+$query = "INSERT INTO meldingen (attractie, type) VALUES (:attractie, :type)";
 
-// 4. Prepare
+// 3. Prepare
 $statement = $pdo->prepare($query);
 
-// 5. Execute
+// 4. Execute
 $statement->execute([
     ":attractie" => $attractie,
-    ":capaciteit" => $capaciteit,
-    ":melder" => $melder,
-    ":type" => $type,
-    ":prioriteit" => $prioriteit,
-    ":overige_info" => $overige_info
+    ":type" => $type
 ]);
 
-// 6. Klaar
-echo "Formulier succesvol opgeslagen!";
+// 5. Optioneel: fetch alle resultaten (bij INSERT meestal niet nodig, maar zo kan je het doen)
+$items = $statement->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
