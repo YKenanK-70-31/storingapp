@@ -1,17 +1,24 @@
 <?php
 
-//Variabelen vullen
+// Variabelen vullen
 $attractie = $_POST['attractie'];
-$capaciteit = $_POST['capaciteit'];
-$melder = $_POST['melder'];
+$type = $_POST['type'];
 
-echo $attractie . " / " . $capaciteit . " / " . $melder;
+// 1. Verbinding
+require_once "conn.php"; // Zorg dat hier $pdo staat (PDO-object)
 
-//1. Verbinding
-require_once '../../../config/conn.php';
+// 2. Query
+$query = "INSERT INTO meldingen (attractie, type) VALUES (:attractie, :type)";
 
-//2. Query
+// 3. Prepare
+$statement = $pdo->prepare($query);
 
-//3. Prepare
+// 4. Execute
+$statement->execute([
+    ":attractie" => $attractie,
+    ":type" => $type
+]);
 
-//4. Execute
+$items = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
