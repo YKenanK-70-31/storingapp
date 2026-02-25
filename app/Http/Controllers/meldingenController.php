@@ -1,24 +1,32 @@
 <?php
-
-// Variabelen vullen
+// 1. Variabelen vullen
 $attractie = $_POST['attractie'];
+$capaciteit = $_POST['capaciteit'];
+$melder = $_POST['melder'];
 $type = $_POST['type'];
+$prioriteit = isset($_POST['prioriteit']) ? 1 : 0;
+$overige_info = $_POST['overige_info'];
 
-// 1. Verbinding
-require_once "conn.php"; // Zorg dat hier $pdo staat (PDO-object)
+// 2. Verbinding maken (PDO)
+require_once "conn.php"; // Hier moet $pdo = new PDO(...) staan
 
-// 2. Query
-$query = "INSERT INTO meldingen (attractie, type) VALUES (:attractie, :type)";
+// 3. Query voorbereiden
+$query = "INSERT INTO meldingen (attractie, capaciteit, melder, type, prioriteit, overige_info)
+          VALUES (:attractie, :capaciteit, :melder, :type, :prioriteit, :overige_info)";
 
-// 3. Prepare
+// 4. Prepare
 $statement = $pdo->prepare($query);
 
-// 4. Execute
+// 5. Execute
 $statement->execute([
     ":attractie" => $attractie,
-    ":type" => $type
+    ":capaciteit" => $capaciteit,
+    ":melder" => $melder,
+    ":type" => $type,
+    ":prioriteit" => $prioriteit,
+    ":overige_info" => $overige_info
 ]);
 
-$items = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+// 6. Klaar
+echo "Formulier succesvol opgeslagen!";
 ?>
