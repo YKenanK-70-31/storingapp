@@ -23,6 +23,7 @@
             <div class="form-group">
                 <label for="type">Type</label>
                 <!-- hier komt een dropdown -->
+                 <input type="text" name="type" id="type" class="form-input">
             </div>
             <div class="form-group">
                 <label for="capaciteit">Capaciteit p/uur:</label>

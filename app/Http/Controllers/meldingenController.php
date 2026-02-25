@@ -3,23 +3,23 @@
 // Variabelen vullen
 $attractie = $_POST['attractie'];
 $type = $_POST['type'];
+$melder = $_POST['melder']; // melder ophalen uit het formulier
 
-// 1. Verbinding
-require_once "conn.php"; // Zorg dat hier $pdo staat (PDO-object)
+// Verbinding
+require_once "../../../config/conn.php";
 
-// 2. Query
-$query = "INSERT INTO meldingen (attractie, type) VALUES (:attractie, :type)";
+// Query met melder erbij
+$query = "INSERT INTO meldingen (attractie, type, melder) 
+          VALUES (:attractie, :type, :melder)";
 
-// 3. Prepare
-$statement = $pdo->prepare($query);
+// Prepare
+$statement = $conn->prepare($query);
 
-// 4. Execute
+// Execute
 $statement->execute([
     ":attractie" => $attractie,
-    ":type" => $type
+    ":type" => $type,
+    ":melder" => $melder
 ]);
-
-// 5. Optioneel: fetch alle resultaten (bij INSERT meestal niet nodig, maar zo kan je het doen)
-$items = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
