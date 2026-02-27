@@ -23,7 +23,30 @@
             <div class="form-group">
                 <label for="type">Type</label>
                 <!-- hier komt een dropdown -->
-                 <input type="text" name="type" id="type" class="form-input">
+                 <form method="POST" action="meldingenController.php">
+
+  <input type="text" name="attractie" placeholder="Attractie" required>
+
+  <input type="text" name="capaciteit" placeholder="Capaciteit" required>
+
+  <input type="text" name="melder" placeholder="Melder" required>
+
+  <select name="type" required>
+    <option value="">-- Kies type --</option>
+    <option value="Technisch">Technisch</option>
+    <option value="Veiligheid">Veiligheid</option>
+    <option value="Overig">Overig</option>
+  </select>
+
+  <label>
+    <input type="checkbox" name="prioriteit" value="1"> Prioriteit
+  </label>
+
+  <textarea name="overige_info" placeholder="Overige info"></textarea>
+
+  <button type="submit">Opslaan</button>
+
+</form>
             </div>
             <div class="form-group">
                 <label for="capaciteit">Capaciteit p/uur:</label>

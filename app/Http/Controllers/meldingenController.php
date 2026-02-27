@@ -1,25 +1,37 @@
 <?php
 
-// Variabelen vullen
 $attractie = $_POST['attractie'];
+$capaciteit = $_POST['capaciteit'];
+$melder = $_POST['melder'];
 $type = $_POST['type'];
-$melder = $_POST['melder']; // melder ophalen uit het formulier
+$prioriteit = isset($_POST['prioriteit']) ? 1 : 0;
+$overige_info = $_POST['overige_info'] ?? '';
 
-// Verbinding
+if (empty($attractie) || empty($type) || empty($melder)) {
+    die("Attractie, Type en Melder mogen niet leeg zijn.");
+}
+
+
+if (!is_numeric($capaciteit)) {
+    die("Capaciteit moet een getal zijn.");
+}
 require_once "../../../config/conn.php";
 
-// Query met melder erbij
-$query = "INSERT INTO meldingen (attractie, type, melder) 
-          VALUES (:attractie, :type, :melder)";
+$query = "INSERT INTO meldingen 
+(attractie, capaciteit, melder, type, prioriteit, overige_info)
+VALUES (:attractie, :capaciteit, :melder, :type, :prioriteit, :overige_info)";
 
-// Prepare
 $statement = $conn->prepare($query);
 
-// Execute
 $statement->execute([
     ":attractie" => $attractie,
+    ":capaciteit" => $capaciteit,
+    ":melder" => $melder,
     ":type" => $type,
-    ":melder" => $melder
+    ":prioriteit" => $prioriteit,
+    ":overige_info" => $overige_info
 ]);
+
+echo "Formulier succesvol opgeslagen!";
 
 ?>
