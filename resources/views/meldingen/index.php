@@ -1,7 +1,7 @@
 <?php require_once __DIR__.'/../../../config/conn.php'; ?>
 
 <?php
-// SELECT-query uitvoeren
+// SELECT-query uitvoeren   
 $query = "SELECT * FROM meldingen";
 $statement = $conn->prepare($query);
 $statement->execute();
