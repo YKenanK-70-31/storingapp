@@ -1,7 +1,13 @@
+<?php
+session_start();
+if(!isset($_SESSION['user_id'])) {
+    header("Location: http://storingapp.test/resources/views/login/index.php");
+    exit;
+}
+?>
 <?php require_once __DIR__.'/../../../config/conn.php'; ?>
 
 <?php
-// SELECT-query uitvoeren   
 $query = "SELECT * FROM meldingen";
 $statement = $conn->prepare($query);
 $statement->execute();
@@ -10,34 +16,18 @@ $meldingen = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <!doctype html>
 <html lang="nl">
-
 <head>
     <title>StoringApp / Meldingen</title>
     <?php require_once __DIR__.'/../components/head.php'; ?>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th {
-            background-color: #d3d3d3;
-            padding: 8px;
-            text-align: left;
-        }
-        td {
-            padding: 8px;
-        }
-        tr:nth-child(odd) {
-            background-color: #ebebeb;
-        }
-        tr:hover {
-            background-color: #d3d3d3;
-        }
+        table { width: 100%; border-collapse: collapse; }
+        th { background-color: #d3d3d3; padding: 8px; text-align: left; }
+        td { padding: 8px; }
+        tr:nth-child(odd) { background-color: #ebebeb; }
+        tr:hover { background-color: #d3d3d3; }
     </style>
 </head>
-
 <body>
-
     <?php require_once __DIR__.'/../components/header.php'; ?>
 
     <div class="container">
@@ -48,7 +38,6 @@ $meldingen = $statement->fetchAll(PDO::FETCH_ASSOC);
             <div class='msg'><?php echo htmlspecialchars($_GET['msg']); ?></div>
         <?php endif; ?>
 
-            
         <div class="meldingen-overzicht">
             <table border="1">
                 <tr>
@@ -73,9 +62,6 @@ $meldingen = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </table>
         </div>
-
     </div>
-
 </body>
-
 </html>
