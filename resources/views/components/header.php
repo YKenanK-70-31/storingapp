@@ -11,7 +11,8 @@
             <?php if(isset($_SESSION['user_id'])): ?>
                 <a href="<?php echo $base_url; ?>/app/Http/Controllers/logoutController.php">Uitloggen</a>
             <?php else: ?>
-                <a href="<?php echo $base_url; ?>/resources/views/login/index.php">Inloggen</a>
+                <a href="<?php echo $base_url; ?>/resources/views/login/index.php">Inloggen</a> |
+                <a href="<?php echo $base_url; ?>/register.php">Registreren</a>
             <?php endif; ?>
         </div>
     </div>
